@@ -1,0 +1,170 @@
+#include <bits/stdc++.h>
+/// there is some wrong in this program .but it is written for overall view of class ,object,constructor,destructor ,
+/// delete new virtual keyword
+using namespace std;
+
+/// this class for virtual destructor.when we don't use virtual destructor derived class destructor  behavior is undefined.to solve
+/// this problem we use "virtual" keyword.
+class base{
+public :
+    base()
+    {
+        cout<<"this is base constructor"<<endl;
+    }
+   virtual ~base()
+    {
+        cout<<"this is base destructor"<<endl;
+    }
+
+};
+class derieved :public base
+{
+ public:
+    derieved()
+    {
+
+        cout<<"this is derieved constructor"<<endl;
+
+    }
+
+    ~derieved()
+    {
+
+        cout<<"this is derieved destructor"<<endl;
+
+    }
+};
+
+class Person{
+
+private :
+    /// when we don't want to express data to users we use private specifier.
+    int age;
+    string name;
+
+    ///describing for destructor
+    string *hair_color;
+    int backAge()
+    {
+        return age-5;
+    }
+
+public:
+
+    ///default constructor
+    Person()
+    {
+        age=0;
+        name="noname";
+        hair_color=new string;
+        *hair_color="nocolor";
+    }
+
+    ///parameterized  constructor
+
+    Person(string iname,int iage)
+    {
+        name=iname;
+        age=iage;
+         hair_color=new string;
+        *hair_color="nocolor";
+
+    }
+
+    ///default class constructor .if we don't pass any value to parameterized constructor then we should this default class constructor.
+
+    /*Person(string iname="noname",int iage=0)
+     {
+        name=iname;
+        age=iage;
+     }*/
+     ///copy constructor
+     Person(const Person &p)
+     {
+         name=p.name;
+         age=p.age;
+         hair_color=new string;
+         *hair_color="black";
+     }
+     ///allocated memory using constructor
+     Person(string temp,int iage,string iname)
+     {
+         cout<<"constructor is called for checking destructor"<<endl;
+         hair_color=new string;
+        *hair_color=temp;
+         name=iname;
+         age=iage;
+     }
+     /// It is destructor.
+     ~Person()
+     {
+         cout<<"destructor is called for checking destructor"<<endl;
+         delete hair_color;
+     }
+
+    /// member function two types .1) inside class definition 2) outside class definition.
+
+    ///inside class definition
+    void display()
+    {
+        cout<<"hi from :"<<name<<" "<<hair_color<<" "<<age<<endl;
+
+    }
+    ///outside class definition
+    void introduce();
+    void setAge(int a)
+    {
+        age=a;
+    }
+    void displayAge()
+    {
+        cout<<backAge()<<endl;
+    }
+
+};
+/// we can't use scope resolution operator(::) to initialize member variables outside the class
+/// string Person::name="noname"; (it is not possible)
+
+///outside class definition for member function introduce()
+void Person :: introduce()
+{
+    cout<<"my name is:"<<name<<endl;
+}
+
+int main()
+{
+    /// it will be stored in stack.
+    Person yasin;
+    Person su("yasin sumon",29);
+    yasin.display();
+
+    su.display();
+    su.displayAge();
+
+
+    /// when we create a pointer of an object it will be stored in heap.
+    Person *sumon=new Person();
+
+    sumon->display();
+    sumon->introduce();
+    sumon->setAge(24);
+    sumon->displayAge();
+    delete sumon;
+
+    Person siam(su);
+    siam.display();
+
+
+    Person * destructor=new Person("black",24,"yasin");
+    destructor->display();
+    delete destructor;
+
+  /// this class is used for virtual destructor demonstration
+   derieved *d=new derieved();
+   base *b=d;
+   delete b;
+
+
+
+    return 0;
+}
