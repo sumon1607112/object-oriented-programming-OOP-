@@ -1,0 +1,40 @@
+/// this is about static member and static function 
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class person{
+  
+public:
+    static int obj_count;
+    ///As age is not a static member then it can't be accessed by static
+    ///member function person_count(),only static member can do this.
+
+    ///int age;
+    person()
+    {
+
+        obj_count++;
+    }
+    static person_count()
+    {
+        ///this function can only access static member . no other variable
+
+        cout<<"number of object created "<<obj_count<<endl;
+    }
+};
+///static member can't be initialized in the class definition . it can be
+///initialized like this .if a static member is private then it also be accessed 
+/// like this.
+int person ::obj_count=0;
+int main()
+{
+
+    person yasin;
+    person sumon;
+    person::person_count();
+
+
+    return 0;
+}
