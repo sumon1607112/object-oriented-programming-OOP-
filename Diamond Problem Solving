@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+/// java does not support multiple inheritance for "DIAMOND PROBLEM".
+/// using interface java can solve this problem.
+/// when multiple inheritance is happened there is a chance to happen
+/// ambiguity. If ambiguity happens then it is called diamond problem
+/// Example will clear this.
+
+/// suppose A is base class
+class A{
+    public:
+void display()
+{
+    cout<<"print class A"<<endl;
+}
+};
+/// B inherits A and we use virtual keyword avoiding "DIAMOND PROBLEM"
+class B: virtual  public A{
+
+
+};
+
+/// C inherits A and we use virtual keyword avoiding "DIAMOND PROBLEM"
+class C:virtual public A{
+
+
+};
+
+/// D inherits B and C
+class D:public B, public C{
+   
+
+};
+int main()
+{
+    /// now if d wants to print the display function compiler get confused
+    /// (when virtual keyword not used) because compiler does not know from 
+    /// which it can inherit display function. so it will show " request 
+    /// for member function 'display' is ambiguous" this type of error which 
+    /// is know as "DIAMOND PROBLEM".we can solve it by using virtual keyword.
+    D d;
+    d.display();
+
+    return 0;
+}
